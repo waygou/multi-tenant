@@ -2,17 +2,16 @@
 
 namespace Waygou\MultiTenant\Console\Commands;
 
-use PleskX\Api\Client;
-use Illuminate\Console\Command;
 use Hyn\Tenancy\Database\Connection;
-use Illuminate\Support\Facades\Hash;
-use Waygou\MultiTenant\Models\Tenant;
+use Illuminate\Console\Command;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use PleskX\Api\Client;
+use Waygou\MultiTenant\Models\Tenant;
 use Waygou\MultiTenant\Notifications\TenantCreated;
 
 class __CreateTenant extends Command
 {
-
     use Notifiable;
 
     /**
@@ -37,7 +36,7 @@ class __CreateTenant extends Command
     private $baseURL;
 
     /**
-     * Database connection
+     * Database connection.
      *
      * @var string
      */
@@ -75,6 +74,7 @@ class __CreateTenant extends Command
 
         if (!$this->confirmData($fqdn, $redirect, $https, $maintenance, $name, $email)) {
             $this->error('Process terminated.');
+
             return false;
         }
 
@@ -91,10 +91,10 @@ class __CreateTenant extends Command
 
         // Create Tenant database (name=fqdn).
         $database = $client->database()->create([
-            'webspace-id' => 31, // Xheetah.com
-            'name' => $fqdn,
-            'type' => 'mysql',
-            'db-server-id' => 1
+            'webspace-id'  => 31, // Xheetah.com
+            'name'         => $fqdn,
+            'type'         => 'mysql',
+            'db-server-id' => 1,
         ]);
 
         // Load the new tenant password in session.
@@ -104,10 +104,10 @@ class __CreateTenant extends Command
 
         // Database user creation for the current Tenant database.
         $user = $client->database()->createUser([
-            'db-id' => $database->id,
-            'login' => $fqdn,
+            'db-id'    => $database->id,
+            'login'    => $fqdn,
             'password' => $dbUserPassword,
-            'role' => 'readWrite'
+            'role'     => 'readWrite',
         ]);
 
         $website = Tenant::registerTenant($subdomain, $redirect, $https, $maintenance, $fqdn);
@@ -121,7 +121,7 @@ class __CreateTenant extends Command
         Tenant::registerAdmin($name, $adminPassword, $email)->notify(new TenantCreated($subdomain));
         $this->output->progressFinish();
 
-        $this->info("Tenant created!");
+        $this->info('Tenant created!');
         $this->info("Tenant address: {$fqdn}.{$this->baseURL}");
         $this->info("Administrator {$email} can sign in, using password: {$adminPassword}");
         $this->info("Admin {$email} has been invited!");
@@ -141,7 +141,7 @@ class __CreateTenant extends Command
         }
 
         if (empty($value)) {
-            $this->error("Tenant name cannot be empty.");
+            $this->error('Tenant name cannot be empty.');
 
             return $this->fqdn();
         }
@@ -191,6 +191,7 @@ class __CreateTenant extends Command
 
     /**
      * @param $name
+     *
      * @return string
      */
     private function value($name)
@@ -216,8 +217,8 @@ class __CreateTenant extends Command
      */
     private function confirmData($fqdn, $redirect, $https, $maintenance, $name, $email)
     {
-        $this->info("Tenant information");
-        $this->info("------------");
+        $this->info('Tenant information');
+        $this->info('------------');
         $this->info("Tenant FQDN: {$fqdn}.{$this->baseURL}");
         if ($redirect) {
             $this->info("Redirect: {$redirect}");
@@ -228,7 +229,7 @@ class __CreateTenant extends Command
         if ($maintenance) {
             $this->info("Under maintenance: {$maintenance}");
         }
-        $this->info("");
+        $this->info('');
         $this->info("Administrator name: {$name}");
         $this->info("Administrator email: {$email}");
 

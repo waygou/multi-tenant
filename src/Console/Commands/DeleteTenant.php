@@ -4,12 +4,11 @@ namespace Waygou\MultiTenant\Console\Commands;
 
 use Hyn\Tenancy\Environment;
 use Illuminate\Console\Command;
-use Waygou\MultiTenant\Models\Tenant;
 use Illuminate\Support\Facades\Config;
+use Waygou\MultiTenant\Models\Tenant;
 
 class DeleteTenant extends Command
 {
-
     protected $signature = 'tenant:delete {name}';
 
     protected $description = 'Deletes a tenant of the provided name. Only available on the local environment e.g. php artisan tenant:delete boise';
@@ -21,12 +20,13 @@ class DeleteTenant extends Command
         // if you are on the local environment
         if (!app()->isLocal()) {
             $this->error('This command is only available on the local environment.');
+
             return;
         }
 
         $this->name = $this->argument('name');
         $baseURL = config('app.url_base');
-        $fqdn = $this->name . '.' . $baseURL;
+        $fqdn = $this->name.'.'.$baseURL;
 
         if (Tenant::tenantExists($fqdn)) {
             Tenant::deleteTenant($fqdn);

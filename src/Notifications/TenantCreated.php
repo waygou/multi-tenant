@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Password;
 
 class TenantCreated extends Notification
 {
-
     private $hostname;
 
     public function __construct($hostname)
@@ -23,10 +22,10 @@ class TenantCreated extends Notification
 
     public function toMail($notifiable)
     {
-
         $token = Password::broker()->createToken($notifiable);
         $resetUrl = "http://{$this->hostname}/password/reset/{$token}";
         $app = config('app.name');
+
         return (new MailMessage())
             ->subject("{$app} Invitation")
             ->greeting("Hello {$notifiable->name},")
