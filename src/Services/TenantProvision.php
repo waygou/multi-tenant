@@ -31,10 +31,10 @@ class TenantProvision
 
         // Create Tenant database (name=fqdn).
         $database = $client->database()->create([
-            'webspace-id' => env('PLESK_WEBSPACE_ID'), // xheetah.com
-            'name' => $name,
-            'type' => 'mysql',
-            'db-server-id' => 1
+            'webspace-id'  => env('PLESK_WEBSPACE_ID'), // xheetah.com
+            'name'         => $name,
+            'type'         => 'mysql',
+            'db-server-id' => 1,
         ]);
 
         return $database;
@@ -51,10 +51,10 @@ class TenantProvision
 
         // Database user creation for the current Tenant database.
         $user = $client->database()->createUser([
-            'db-id' => $databaseId,
-            'login' => $name,
+            'db-id'    => $databaseId,
+            'login'    => $name,
             'password' => md5(env('PLESK_TENANT_DB_PASSWORD')),
-            'role' => 'readWrite'
+            'role'     => 'readWrite',
         ]);
     }
 }

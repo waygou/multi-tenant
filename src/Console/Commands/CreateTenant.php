@@ -2,7 +2,6 @@
 
 namespace Waygou\MultiTenant\Console\Commands;
 
-use PleskX\Api\Client;
 use Illuminate\Console\Command;
 use Waygou\MultiTenant\Models\Tenant;
 use Waygou\MultiTenant\Services\TenantProvision;
@@ -27,17 +26,18 @@ class CreateTenant extends Command
         $this->lineSpace();
 
         $subdomain = $this->argument('subdomain');
-        $fqdn = $subdomain . '.' . config('app.url_base');
+        $fqdn = $subdomain.'.'.config('app.url_base');
         $autoDbCreation = $this->option('autodb');
 
         $this->line("Subdomain: $fqdn");
-        $this->line("DB auto-creation: ". bool_str($autoDbCreation));
+        $this->line('DB auto-creation: '.bool_str($autoDbCreation));
 
         $this->lineSpace();
 
         // Verify if subdomain already exists.
         if (Tenant::tenantExists($fqdn)) {
             $this->error('Error! Subdomain already exists! Aborting ...');
+
             return;
         }
 
