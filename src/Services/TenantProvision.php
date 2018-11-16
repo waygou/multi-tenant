@@ -10,7 +10,6 @@ class TenantProvision
     {
         config(['tenancy.db.auto-create-tenant-database' => true]);
         config(['tenancy.db.auto-create-tenant-database-user' => true]);
-        config(['tenancy.db.password-generator' => Hyn\Tenancy\Generators\Database\DefaultPasswordGenerator::class]);
     }
 
     public static function configureForManualDbProvisioning()

@@ -19,10 +19,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         // config.database
         $this->publishes([
-            __DIR__.'/../config/database.php.stub' => config_path('database.php'),
-            __DIR__.'/../.env.stub'                => base_path('.env'),
-            __DIR__.'/Http/Kernel.php.stub'        => base_path('app/Http/Kernel.php'),
-            __DIR__.'/../database/migrations'      => database_path('migrations'),
+            __DIR__.'/Http/Kernel.php.stub'        => base_path('app/Http/Kernel.php')
         ], 'waygou-multi-tenant-overrides');
     }
 

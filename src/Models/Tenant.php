@@ -37,12 +37,15 @@ class Tenant
 
         $hostname = new Hostname();
         $hostname->fqdn = $fqdn;
+
         if ($redirect) {
             $hostname->redirect_to = $redirect;
         }
+
         if ($https) {
             $hostname->force_https = $https;
         }
+
         if ($maintenance) {
             $hostname->under_maintenance_since = Carbon::parse($maintenance)->format('Y-m-d H:i:s');
         }
@@ -51,13 +54,6 @@ class Tenant
         app(HostnameRepository::class)->attach($hostname, $website);
 
         return $website;
-    }
-
-    public static function registerAdmin($name, $password, $email)
-    {
-        $admin = User::create(['name' => $name, 'email' => $email, 'password' => bcrypt($password)]);
-
-        return $admin;
     }
 
     public static function tenantExists($fqdn)
