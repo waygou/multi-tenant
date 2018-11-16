@@ -2,11 +2,10 @@
 
 namespace Waygou\MultiTenant\Console\Commands;
 
-use Hyn\Tenancy\Environment;
 use Illuminate\Console\Command;
-use Waygou\Xheetah\Models\User;
 use Waygou\MultiTenant\Models\Tenant;
 use Waygou\MultiTenant\Services\TenantProvision;
+use Waygou\Xheetah\Models\User;
 
 class CreateTenant extends Command
 {
@@ -30,7 +29,7 @@ class CreateTenant extends Command
         $this->lineSpace();
 
         $subdomain = $this->argument('subdomain');
-        $fqdn = $subdomain . '.' . config('app.url_base');
+        $fqdn = $subdomain.'.'.config('app.url_base');
         $autoDbCreation = $this->option('autodb');
         $forceHttps = $this->option('forcehttps');
 
@@ -42,6 +41,7 @@ class CreateTenant extends Command
         // Verify if subdomain already exists.
         if (Tenant::tenantExists($fqdn)) {
             $this->error('Error! Subdomain already exists! Aborting ...');
+
             return;
         }
 
