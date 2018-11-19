@@ -8,18 +8,18 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {
-        $this->overrideFiles();
+        $this->publishFiles();
 
         $this->registerCommands();
 
         $this->loadRoutes();
     }
 
-    public function overrideFiles()
+    public function publishFiles()
     {
-        // config.database
         $this->publishes([
             __DIR__.'/Http/Kernel.php.stub'        => base_path('app/Http/Kernel.php'),
+            __DIR__.'/../config/tenancy.php.stub'  => config_path('tenancy.php'),
         ], 'waygou-multi-tenant-overrides');
     }
 
