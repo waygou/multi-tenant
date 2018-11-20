@@ -28,8 +28,8 @@ class DeleteTenant extends Command
         $baseURL = config('app.url_base');
         $fqdn = $this->name.'.'.$baseURL;
 
-        if (Tenant::tenantExists($fqdn)) {
-            Tenant::deleteTenant($fqdn);
+        if (Tenant::exists($fqdn)) {
+            Tenant::delete($fqdn);
             $this->info("Tenant {$this->name} successfully deleted.");
         } else {
             $this->error("Tenant '{$this->name}' does not exists, please retry.");

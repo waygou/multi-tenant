@@ -19,7 +19,7 @@ class Tenant
     {
     }
 
-    public static function deleteTenant($fqdn)
+    public static function delete($fqdn)
     {
         if ($hostname = Hostname::where('fqdn', $fqdn)->with(['website'])->firstOrFail()) {
             $website = $hostname->website->first();
@@ -28,7 +28,7 @@ class Tenant
         }
     }
 
-    public static function registerTenant($subdomain, $redirect, $https, $maintenance, $fqdn)
+    public static function register($subdomain, $redirect, $https, $maintenance, $fqdn)
     {
         $website = new Website();
         $website->uuid = $subdomain; // Easy to read from the website table.
@@ -56,7 +56,7 @@ class Tenant
         return $website;
     }
 
-    public static function tenantExists($fqdn)
+    public static function exists($fqdn)
     {
         return Hostname::where('fqdn', $fqdn)->exists();
     }

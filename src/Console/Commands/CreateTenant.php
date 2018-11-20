@@ -38,8 +38,18 @@ class CreateTenant extends Command
 
         $this->lineSpace();
 
+        $this->line('Creating tenant ...');
+        $result = TenantProvision::createTenant($subdomain, $autoDbCreation, $forceHttps);
+
+        if (!$result) {
+            $this->error(TenantProvision::$error);
+            return;
+        }
+
+        /*
+
         // Verify if subdomain already exists.
-        if (Tenant::tenantExists($fqdn)) {
+        if (Tenant::exists($fqdn)) {
             $this->error('Error! Subdomain already exists! Aborting ...');
 
             return;
@@ -62,7 +72,7 @@ class CreateTenant extends Command
         }
 
         $this->line('Creating tenant ...');
-        $website = Tenant::registerTenant($subdomain, false, $forceHttps, false, $fqdn);
+        $website = Tenant::register($subdomain, false, $forceHttps, false, $fqdn);
 
         /*
         $this->line('Creating Xheetah admin user (admin@live.com) ...');

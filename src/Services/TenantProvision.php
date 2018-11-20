@@ -3,9 +3,12 @@
 namespace Waygou\MultiTenant\Services;
 
 use PleskX\Api\Client;
+use Waygou\MultiTenant\Models\Tenant;
 
 class TenantProvision
 {
+    public static $error = '';
+
     public static function configureForAutoDbProvisioning()
     {
         config(['tenancy.db.auto-create-tenant-database' => true]);
@@ -55,5 +58,33 @@ class TenantProvision
             'password' => md5(env('PLESK_TENANT_DB_PASSWORD')),
             'role'     => 'readWrite',
         ]);
+    }
+
+    public static function createTenant($subdomain, $autoDbCreation, $forceHttps = true)
+    {
+        $fqdn = $subdomain.'.'.config('app.url_base');
+
+        if (Tenant::exists($fqdn)) {
+            static::$error = 'Error! Subdomain already exists!';
+            return;
+        }
+
+        if ($autoDbCreation) {
+            // DB + User created automatically by the hyn/multi-tenant.
+            // Configure tenancy configuration file for default database provisioning.
+            static::configureForAutoDbProvisioning();
+        } else {
+            // DB + User manually created using the Plesk XML RPC Api.
+            // Configure tenancy configuration file for manual database provisioning.
+            static::configureForManualDbProvisioning();
+
+            // Create a Plesk database and a Plesk username based on the fqdn.
+            $database = static::createPleskDatabase($subdomain);
+            static::createPleskDatabaseUser($subdomain, $database->id);
+        }
+
+        $website = Tenant::register($subdomain, false, $forceHttps, false, $fqdn);
+
+        return true;
     }
 }
