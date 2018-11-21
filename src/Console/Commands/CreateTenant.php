@@ -39,40 +39,12 @@ class CreateTenant extends Command
         $this->lineSpace();
 
         $this->line('Creating tenant ...');
-        $result = TenantProvision::createTenant($subdomain, $autoDbCreation, $forceHttps);
+        $website = TenantProvision::createTenant($subdomain, $autoDbCreation, $forceHttps);
 
-        if (!$result) {
+        if (!$website) {
             $this->error(TenantProvision::$error);
             return;
         }
-
-        /*
-
-        // Verify if subdomain already exists.
-        if (Tenant::exists($fqdn)) {
-            $this->error('Error! Subdomain already exists! Aborting ...');
-
-            return;
-        }
-
-        if ($autoDbCreation) {
-            // DB + User created automatically by the hyn/multi-tenant.
-            // Configure tenancy configuration file for default database provisioning.
-            $this->line('Changing tenancy.php configuration for auto-db provisioning ...');
-            TenantProvision::configureForAutoDbProvisioning();
-        } else {
-            // DB + User manually created using the Plesk XML RPC Api.
-            // Configure tenancy configuration file for manual database provisioning.
-            TenantProvision::configureForManualDbProvisioning();
-
-            // Create a Plesk database and a Plesk username based on the fqdn.
-            $this->line('Manual db provisioning selected using Plesk API ...');
-            $database = TenantProvision::createPleskDatabase($subdomain);
-            TenantProvision::createPleskDatabaseUser($subdomain, $database->id);
-        }
-
-        $this->line('Creating tenant ...');
-        $website = Tenant::register($subdomain, false, $forceHttps, false, $fqdn);
 
         /*
         $this->line('Creating Xheetah admin user (admin@live.com) ...');

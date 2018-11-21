@@ -224,7 +224,7 @@ return [
          *
          * @warn specify a valid fully qualified class name.
          */
-        'tenant-seed-class' => false,
+        'tenant-seed-class' => Waygou\Xheetah\Seeders\CreateSchemaSeeder::class,
 //      eg an admin seeder under `app/Seeders/AdminSeeder.php`:
 //        'tenant-seed-class' => App\Seeders\AdminSeeder::class,
 
