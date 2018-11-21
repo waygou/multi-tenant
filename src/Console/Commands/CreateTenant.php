@@ -43,6 +43,7 @@ class CreateTenant extends Command
 
         if (!$website) {
             $this->error(TenantProvision::$error);
+
             return;
         }
 

@@ -2,8 +2,8 @@
 
 namespace Waygou\MultiTenant\Services;
 
-use PleskX\Api\Client;
 use Hyn\Tenancy\Models\Website;
+use PleskX\Api\Client;
 use Waygou\MultiTenant\Models\Tenant;
 
 class TenantProvision
@@ -68,8 +68,9 @@ class TenantProvision
         // Check if the website uuid already exists with this subdomain name.
         if (Website::where('uuid', $subdomain)->exists()) {
             static::$error = 'Error! Subdomain already exists!';
+
             return false;
-        };
+        }
 
         if ($autoDbCreation) {
             // DB + User created automatically by the hyn/multi-tenant.
