@@ -10,11 +10,6 @@ class TenantProvision
 {
     public static $error = '';
 
-    public static function configureSeeder($class)
-    {
-        config(['tenancy.db.tenant-seed-class' => $class]);
-    }
-
     public static function configureForAutoDbProvisioning()
     {
         config(['tenancy.db.auto-create-tenant-database' => true]);
