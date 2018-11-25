@@ -159,7 +159,7 @@ return [
          * This will resolve issues with password reset mails etc using the
          * correct domain.
          */
-        'update-app-url' => false,
+        'update-app-url' => true,
     ],
     'db' => [
         /**
@@ -233,7 +233,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-create-tenant-database' => true,
+        'auto-create-tenant-database' => false,
 
         /**
          * Automatically generate the user needed to access the database.
@@ -244,7 +244,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-create-tenant-database-user' => true,
+        'auto-create-tenant-database-user' => false,
 
         /**
          * Automatically rename the tenant database when the random id of the
@@ -253,7 +253,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-rename-tenant-database' => true,
+        'auto-rename-tenant-database' => false,
 
         /**
          * Automatically deletes the tenant specific database and all data
