@@ -17,7 +17,7 @@ class PleskPasswordGenerator implements PasswordGenerator
 
     public function generate(Website $website) : string
     {
-        info('Returning password ' . md5(env('PLESK_TENANT_DB_PASSWORD')));
+        info('Returning password '.md5(env('PLESK_TENANT_DB_PASSWORD')));
         // Generate a new password per hyn/multi-tenant defaul algorithm.
         return md5(env('PLESK_TENANT_DB_PASSWORD'));
     }
