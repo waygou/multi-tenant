@@ -2,9 +2,9 @@
 
 namespace Waygou\MultiTenant\Generators\Database;
 
-use Hyn\Tenancy\Contracts\Database\PasswordGenerator;
 use Hyn\Tenancy\Contracts\Website;
 use Illuminate\Contracts\Foundation\Application;
+use Hyn\Tenancy\Contracts\Database\PasswordGenerator;
 
 class PleskPasswordGenerator implements PasswordGenerator
 {

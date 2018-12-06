@@ -4,8 +4,8 @@ namespace Waygou\MultiTenant\Console\Commands;
 
 use Hyn\Tenancy\Environment;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
 use Waygou\MultiTenant\Models\Tenant;
+use Illuminate\Support\Facades\Config;
 
 class DeleteTenant extends Command
 {
@@ -18,7 +18,7 @@ class DeleteTenant extends Command
 
         // because this is a destructive command, we'll only allow to run this command
         // if you are on the local environment
-        if (!app()->isLocal()) {
+        if (! app()->isLocal()) {
             $this->error('This command is only available on the local environment.');
 
             return;

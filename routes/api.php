@@ -1,9 +1,9 @@
 <?php
 
-use Hyn\Tenancy\Database\Connection;
-use Illuminate\Support\Facades\Config;
 use PleskX\Api\Client;
+use Hyn\Tenancy\Database\Connection;
 use Waygou\MultiTenant\Models\Tenant;
+use Illuminate\Support\Facades\Config;
 use Waygou\MultiTenant\Notifications\TenantCreated;
 
 //Route::middleware(['api', 'sameip:' . env('SERVER_IP_ADDRESS')])
