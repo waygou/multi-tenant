@@ -3,10 +3,10 @@
 namespace Waygou\MultiTenant\Models;
 
 use Carbon\Carbon;
-use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
-use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
-use Hyn\Tenancy\Models\Hostname;
 use Hyn\Tenancy\Models\Website;
+use Hyn\Tenancy\Models\Hostname;
+use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
+use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 
 /**
  * @property Website website

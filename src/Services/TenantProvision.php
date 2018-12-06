@@ -2,8 +2,8 @@
 
 namespace Waygou\MultiTenant\Services;
 
-use Hyn\Tenancy\Models\Website;
 use PleskX\Api\Client;
+use Hyn\Tenancy\Models\Website;
 use Waygou\MultiTenant\Models\Tenant;
 
 class TenantProvision

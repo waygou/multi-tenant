@@ -2,9 +2,9 @@
 
 namespace Waygou\MultiTenant\Notifications;
 
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class TenantCreated extends Notification
 {

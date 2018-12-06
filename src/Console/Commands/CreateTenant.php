@@ -3,9 +3,9 @@
 namespace Waygou\MultiTenant\Console\Commands;
 
 use Illuminate\Console\Command;
+use Waygou\Xheetah\Models\User;
 use Waygou\MultiTenant\Models\Tenant;
 use Waygou\MultiTenant\Services\TenantProvision;
-use Waygou\Xheetah\Models\User;
 
 class CreateTenant extends Command
 {
@@ -41,7 +41,7 @@ class CreateTenant extends Command
         $this->line('Creating tenant ...');
         $website = TenantProvision::createTenant($subdomain, $autoDbCreation, $forceHttps);
 
-        if (!$website) {
+        if (! $website) {
             $this->error(TenantProvision::$error);
 
             return;
